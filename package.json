@@ -1,0 +1,17 @@
+{
+  "name": "ws-sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc src/app.ts",
+    "start": "node build/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "node-ts": "^5.1.2",
+    "typescript": "^4.5.4"
+  }
+}
