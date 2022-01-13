@@ -25,6 +25,14 @@ class SocketServer {
         socket.emit(WS_ACTIONS.SET_USERNAME, {
             username: socket.username
         })
+        socket.broadcast.emit(WS_ACTIONS.USER_JOINED, {
+            username: socket.username
+        })
+        socket.on('disconnect', () => {
+            socket.broadcast.emit(WS_ACTIONS.DISCONNECT, {
+                username: socket.username
+            })
+        })
     }
 
     public run(): void {

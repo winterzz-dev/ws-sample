@@ -1,14 +1,22 @@
 import {Username} from './modules/username.js'
+import {Socket} from './modules/socket.js'
+import {Messages} from './modules/messages.js'
 
 document.addEventListener('DOMContentLoaded', () => {
     const username = new Username('#username')
-    const WS_ACTIONS = {
-        SET_USERNAME: 'SET_USERNAME'
-    }
+    const messages = new Messages('#messages')
+    const socket = new Socket()
 
-    const socket = io()
-
-    socket.on(WS_ACTIONS.SET_USERNAME, payload => {
+    socket.onSetUsername(payload => {
         username.render(payload.username)
+        messages.renderSystemMessage(`${payload.username} assigned to you.`)
+    })
+
+    socket.onUserJoined(payload => {
+        messages.renderSystemMessage(`${payload.username} joined.`)
+    })
+
+    socket.onUserLeft(payload => {
+        messages.renderSystemMessage(`${payload.username} left.`)
     })
 })
