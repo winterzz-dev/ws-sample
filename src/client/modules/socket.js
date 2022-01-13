@@ -2,7 +2,8 @@
 const WS_ACTIONS = {
     SET_USERNAME: 'SET_USERNAME',
     USER_JOINED: 'USER_JOINED',
-    DISCONNECT: 'DISCONNECT'
+    DISCONNECT: 'DISCONNECT',
+    CHAT_MESSAGE: 'CHAT_MESSAGE'
 }
 
 export class Socket {
@@ -20,5 +21,15 @@ export class Socket {
 
     onUserLeft = handler => {
         this.socket.on(WS_ACTIONS.DISCONNECT, handler)
+    }
+
+    onChatMessage = handler => {
+        this.socket.on(WS_ACTIONS.CHAT_MESSAGE, handler)
+    }
+
+    emitChatMessage = message => {
+        this.socket.emit(WS_ACTIONS.CHAT_MESSAGE, {
+            message: message
+        })
     }
 }

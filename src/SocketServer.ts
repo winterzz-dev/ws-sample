@@ -20,7 +20,7 @@ class SocketServer {
         this.io = new socketServer(httpServer)
     }
 
-    private onConnectionHandler(socket: ExtendedSocket): void {
+    private onConnectionHandler = (socket: ExtendedSocket): void => {
         socket.username = Moniker.choose()
         socket.emit(WS_ACTIONS.SET_USERNAME, {
             username: socket.username
@@ -30,6 +30,12 @@ class SocketServer {
         })
         socket.on('disconnect', () => {
             socket.broadcast.emit(WS_ACTIONS.DISCONNECT, {
+                username: socket.username
+            })
+        })
+        socket.on(WS_ACTIONS.CHAT_MESSAGE, payload => {
+            this.io.emit(WS_ACTIONS.CHAT_MESSAGE, {
+                message: payload.message,
                 username: socket.username
             })
         })
