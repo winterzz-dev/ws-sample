@@ -4,7 +4,9 @@ const WS_ACTIONS = {
     USER_JOINED: 'USER_JOINED',
     DISCONNECT: 'DISCONNECT',
     CHAT_MESSAGE: 'CHAT_MESSAGE',
-    USER_TYPING: 'USER_TYPING'
+    USER_TYPING: 'USER_TYPING',
+    ROOM_CHANGED: 'ROOM_CHANGED',
+    CHANGE_ROOM: 'CHANGE_ROOM'
 }
 
 export class Socket {
@@ -40,5 +42,13 @@ export class Socket {
 
     emitUserTyping() {
         this.socket.emit(WS_ACTIONS.USER_TYPING);
+    }
+
+    onRoomChanged(handler) {
+        this.socket.on(WS_ACTIONS.ROOM_CHANGED, handler);
+    }
+
+    emitRoomChange(room) {
+        this.socket.emit(WS_ACTIONS.CHANGE_ROOM, room);
     }
 }

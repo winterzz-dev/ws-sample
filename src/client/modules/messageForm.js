@@ -1,20 +1,7 @@
-export class MessageForm {
-    constructor(selector) {
-        this.node = document.querySelector(selector)
-        this.input = this.node[0]
-    }
+import {Form} from './form.js'
 
-    onSubmit(handler) {
-        this.node.addEventListener('submit', event => {
-            event.preventDefault()
-            if(this.input.value) {
-                handler(this.input.value)
-                this.input.value = ''
-            }
-        })
-    }
-
+export class MessageForm extends Form {
     onKeypress(handler) {
-        this.node.addEventListener('keypress', handler);
+        this.node.addEventListener('keypress', handler)
     }
 }

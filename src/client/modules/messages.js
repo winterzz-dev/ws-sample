@@ -10,4 +10,8 @@ export class Messages {
     renderSystemMessage = message => {
         this.renderMessage('system', message)
     }
+
+    clear = () => {
+        this.node.innerHTML = ''
+    }
 }

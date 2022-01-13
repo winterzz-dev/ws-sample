@@ -1,14 +1,18 @@
 import {Username} from './modules/username.js'
 import {Socket} from './modules/socket.js'
 import {Messages} from './modules/messages.js'
-import {MessageForm} from './modules/messageForm.js'
 import {TypingStatus} from './modules/typingStatus.js'
+import {MessageForm} from './modules/messageForm.js'
+import {RoomForm} from './modules/roomForm.js'
+import {Rooms} from './modules/rooms.js'
 
 document.addEventListener('DOMContentLoaded', () => {
     const username = new Username('#username')
     const messages = new Messages('#messages')
     const messageForm = new MessageForm('#messageForm')
     const typingStatus = new TypingStatus('#typingStatus')
+    const roomForm = new RoomForm('#room')
+    const rooms = new Rooms('#rooms')
     const socket = new Socket()
 
     socket.onSetUsername(payload => {
@@ -29,8 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
         typingStatus.removeTypingUser(username)
     })
 
-    socket.onUserTyping(username => {
-        typingStatus.addTypingUser(username)
+    socket.onUserTyping(payload => {
+        console.log(payload)
+        typingStatus.addTypingUser(payload.username)
     })
 
     messageForm.onSubmit(value => {
@@ -39,5 +44,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     messageForm.onKeypress(() => {
         socket.emitUserTyping()
+    })
+
+    rooms.render()
+
+    roomForm.onSubmit(room => {
+        socket.emitRoomChange(room)
+    })
+
+    socket.onRoomChanged(room => {
+        rooms.add(room)
+        rooms.select(room)
+        rooms.render()
+        messages.clear()
     })
 })
