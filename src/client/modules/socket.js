@@ -3,7 +3,8 @@ const WS_ACTIONS = {
     SET_USERNAME: 'SET_USERNAME',
     USER_JOINED: 'USER_JOINED',
     DISCONNECT: 'DISCONNECT',
-    CHAT_MESSAGE: 'CHAT_MESSAGE'
+    CHAT_MESSAGE: 'CHAT_MESSAGE',
+    USER_TYPING: 'USER_TYPING'
 }
 
 export class Socket {
@@ -31,5 +32,13 @@ export class Socket {
         this.socket.emit(WS_ACTIONS.CHAT_MESSAGE, {
             message: message
         })
+    }
+
+    onUserTyping(handler) {
+        this.socket.on(WS_ACTIONS.USER_TYPING, handler);
+    }
+
+    emitUserTyping() {
+        this.socket.emit(WS_ACTIONS.USER_TYPING);
     }
 }

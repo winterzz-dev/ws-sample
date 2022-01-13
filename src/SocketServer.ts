@@ -39,6 +39,9 @@ class SocketServer {
                 username: socket.username
             })
         })
+        socket.on(WS_ACTIONS.USER_TYPING, () => {
+            socket.broadcast.emit(WS_ACTIONS.USER_TYPING, socket.username);
+        })
     }
 
     public run(): void {
