@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
-    "module": "ES2020",
+    "module": "commonjs",
     "target": "es5",
     "sourceMap": true,
-    "outDir": "build"
+    "outDir": "build",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
   "exclude": [
     "node_modules"

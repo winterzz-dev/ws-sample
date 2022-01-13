@@ -1,0 +1,3 @@
+export enum WS_ACTIONS {
+    SET_USERNAME = 'SET_USERNAME'
+}
