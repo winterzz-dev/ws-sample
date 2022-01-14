@@ -1,12 +1,9 @@
 import express, { Express } from 'express'
 import http, { Server as httpServer } from 'http'
 
-interface IHttpServer {
-    httpServer: typeof express
-    port: number
-}
+import { IHttpServer, IServer } from './types'
 
-class HttpServer {
+class HttpServer implements IServer {
     public server: httpServer
     private readonly app: Express
     private readonly port: number
